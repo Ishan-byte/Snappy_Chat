@@ -5,20 +5,16 @@
 // import userRouter from "./modules/user/userroutes.js";
 // import {} from "dotenv/config";
 
-const express = require("express")
-const cors= require("cors")
-const mongoose= require("mongoose")
-const userRouter = require("./modules/user/userroutes")
-require("dotenv").config()
-
-
+const express = require("express");
+const cors = require("cors");
+const mongoose = require("mongoose");
+const userRouter = require("./modules/user/userroutes");
+require("dotenv").config();
 
 // APP
 
 //Creating an express application
 const app = express();
-
-
 
 // MIDDLEWARE
 
@@ -31,9 +27,7 @@ app.use(express.json());
 // telling the router to handle routes starting with following route via userRouter
 app.use("/api/auth", userRouter);
 
-
-
-
+app.use(express.static("static"));
 
 // DATABASE
 mongoose
@@ -47,9 +41,6 @@ mongoose
   .catch((err) => {
     console.log(err.messsage);
   });
-
-
-
 
 // SERVER
 

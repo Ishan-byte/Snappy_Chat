@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -6,22 +6,20 @@ import { expression, toastOptions } from "../utils/constants";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-
 //routes
 import { registerRoute } from "../routes/routes";
 
 // Logo
 import Logo from "./../assets/logo.svg";
+import { userChecklocalStorage } from "../utils/helpers";
 
 // Register Component
 const Register: FC = () => {
-
   // Constants
   const navigate = useNavigate();
 
-
   // States
-  const [values, setValues] = useState<InputValues>({
+  const [values, setValues] = useState<RegisterInputValues>({
     username: "",
     email: "",
     password: "",
@@ -29,30 +27,28 @@ const Register: FC = () => {
   });
 
   // Functions
-
   // on submitting the form
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     if (handleValidation()) {
       // const body = values;
 
-      const { username, email, password} = values
-      const { data } = await axios.post(registerRoute, {
+      const { username, email, password } = values;
+      const { data } = await axios.post(registerRoute.toString(), {
         username,
         email,
-        password
+        password,
       });
-      
+
       // In case the api call fails
       if (data.status === "fail") {
-          toast.error(data.message , toastOptions)
+        toast.error(data.message, toastOptions);
       }
 
       if (data.status === "pass") {
-        localStorage.setItem("chat-app-user" , JSON.stringify(data.user))
-        navigate('/')
+        localStorage.setItem("chat-app-user", JSON.stringify(data.user));
+        navigate("/setavatar");
       }
-
     }
   };
 
@@ -66,7 +62,8 @@ const Register: FC = () => {
 
   // for validating input values
   const handleValidation = (): boolean => {
-    const { username, email, password, repassword }: InputValues = values;
+    const { username, email, password, repassword }: RegisterInputValues =
+      values;
 
     // Blank check
     if (!username || !email || !password || !repassword) {
@@ -76,6 +73,14 @@ const Register: FC = () => {
     // Short Username
     else if (username.length < 3) {
       toast.error("Username must be greater than 3 letters", toastOptions);
+      return false;
+    }
+    // Short Password
+    else if (password.length < 8) {
+      toast.error(
+        "Password length must be greater than 8 letters",
+        toastOptions
+      );
       return false;
     }
     // Invalid email

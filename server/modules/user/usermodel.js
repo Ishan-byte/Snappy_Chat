@@ -4,7 +4,6 @@ const userSchema = new mongoose.Schema({
   // Username
   username: {
     type: String,
-    unique: true,
     required: true,
     min: 3,
     max: 20,
@@ -13,6 +12,7 @@ const userSchema = new mongoose.Schema({
   // Email
   email: {
     type: String,
+    unique: true,
     required: true,
     max: 50,
   },
@@ -37,6 +37,6 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-userSchema.index({ email: 1 }, { unique: true });
+userSchema.index({ username: 1 }, { unique: true });
 
 module.exports = mongoose.model("Users", userSchema);
