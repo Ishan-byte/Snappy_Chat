@@ -1,3 +1,4 @@
+
 // checks user data is available in the web browser's localStorage or not
 export function userChecklocalStorage() {
   if (!localStorage.getItem("chat-app-user")) {

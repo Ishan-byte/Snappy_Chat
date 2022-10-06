@@ -11,5 +11,6 @@ router.post("/register", User.register);
 router.post("/login", User.login);
 router.post("/setavatar/:id", User.setAvatar);
 router.get("/getrandomavatars", User.getRandomAvatars);
+router.get("/getallusers/:id", User.getAllUsers);
 
 module.exports = router;

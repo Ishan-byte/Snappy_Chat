@@ -17,3 +17,6 @@ export const setAvatarRoute: URL = new URL(`${host}/api/auth/setavatar`);
 
 // GetAvatar
 export const getAvatarRoute: URL = new URL(`${host}/api/auth/getrandomavatars`);
+
+// Get all users
+export const getAllUsersRoute: URL = new URL(`${host}/api/auth/getallusers`);

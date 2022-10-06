@@ -8,11 +8,7 @@ import { getAvatarRoute, setAvatarRoute } from "../routes/routes";
 
 // Images
 import Loader from "./../assets/loader.gif";
-import {
-  getUserLocalStorage,
-  setUserLocalStorage,
-  userChecklocalStorage,
-} from "../utils/helpers";
+import { getUserLocalStorage, setUserLocalStorage } from "../utils/helpers";
 
 // Main Component
 const SetAvatar: FC = () => {
@@ -106,7 +102,7 @@ const Container = styled.div`
   justify-content: center;
   flex-direction: column;
   gap: 3rem;
-  background-color: #131324;
+  background-color: var(--primary-color);
   height: 100vh;
   width: 100vw;
 

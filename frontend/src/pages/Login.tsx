@@ -131,7 +131,7 @@ const FormContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #131324;
+  background-color: var(--primary-color);
   gap: 1;
 
   .brand {

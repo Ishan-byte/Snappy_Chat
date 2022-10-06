@@ -123,6 +123,16 @@ const User = {
       next(ex);
     }
   },
+
+  /// for getting all the users
+  async getAllUsers(req, res, next) {
+    try {
+      const users = await UserModel.find({ _id: { $ne: req.params.id } });
+      return res.json({ users });
+    } catch (ex) {
+      next(ex);
+    }
+  },
 };
 
 module.exports = User;
