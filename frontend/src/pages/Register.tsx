@@ -11,7 +11,9 @@ import { registerRoute } from "../routes/routes";
 
 // Logo
 import Logo from "./../assets/logo.svg";
-import { userChecklocalStorage } from "../utils/helpers";
+
+// Interfaces
+import { RegisterInputValues } from "../utils/interface";
 
 // Register Component
 const Register: FC = () => {

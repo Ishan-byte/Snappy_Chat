@@ -24,7 +24,7 @@ const SetAvatar: FC = () => {
     if (!selectedAvatar) {
       toast.error("Please select an avatar", toastOptions);
     } else {
-      const user = getUserLocalStorage();
+      const user = await getUserLocalStorage();
       console.log(user);
       const { data } = await axios.post(
         `${setAvatarRoute.toString()}/${user!._id}`,

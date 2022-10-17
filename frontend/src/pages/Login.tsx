@@ -15,6 +15,9 @@ import { loginRoute } from "../routes/routes";
 // Logo
 import Logo from "./../assets/logo.svg";
 
+// interfaces
+import { LoginInputValues } from "../utils/interface";
+
 // Register Component
 const Login: FC = () => {
   // Constants

@@ -2,32 +2,48 @@
 import React, { FC, useEffect, useState } from "react";
 import styled from "styled-components";
 import Contact from "../components/Contact";
+import Welcome from "../components/Welcome";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
+//Interfaces
+import { userLocalStorageObject } from "../utils/interface";
+
 // External Functions
 import { getUserLocalStorage, userChecklocalStorage } from "../utils/helpers";
 import { getAllUsersRoute } from "../routes/routes";
+import ChatContainer from "../components/ChatContainer";
 
 // Main
 const Chat: FC = () => {
   const navigate = useNavigate();
   const [contacts, setContacts] = useState<userLocalStorageObject[]>([]);
-  const [currentUser, setCurrentUser] = useState<userLocalStorageObject | undefined>();
+  const [currentUser, setCurrentUser] = useState<
+    userLocalStorageObject | undefined
+  >();
+  const [currentContact, setCurrentContact] = useState<
+    userLocalStorageObject | undefined
+  >();
 
   useEffect(() => {
-    if (!userChecklocalStorage) {
-      navigate("/");
-    } else {
-      setCurrentUser(getUserLocalStorage);
+    async function test() {
+      if (userChecklocalStorage()) {
+        const user = await getUserLocalStorage();
+        setCurrentUser(user);
+      } else {
+        navigate("/login");
+      }
     }
+    test();
   }, []);
 
   useEffect(() => {
-    setuser();
+    getUsers();
   }, [currentUser]);
 
+
   // Functions
-  const setuser = async () => {
+  const getUsers = async () => {
     if (currentUser) {
       if (currentUser.isAvatarImageSet) {
         const { data } = await axios.get(
@@ -43,7 +59,16 @@ const Chat: FC = () => {
   return (
     <Container>
       <div className="container">
-        <Contact contacts={contacts} currentUser={currentUser} />
+        <Contact
+          contacts={contacts}
+          currentUser={currentUser}
+          setCurrentContact={setCurrentContact}
+        />
+        {currentContact === undefined ? (
+          <Welcome user={currentUser} />
+        ) : (
+          <ChatContainer contact={currentContact} />
+        )}
       </div>
     </Container>
   );
